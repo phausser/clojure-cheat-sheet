@@ -1,0 +1,52 @@
+name: README to PDF Release
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'README.md'
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    concurrency:
+      group: readme-to-pdf-release-latest
+      cancel-in-progress: true
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+
+      - name: Install pandoc and LaTeX
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc texlive-latex-base texlive-fonts-recommended texlive-latex-extra
+
+      - name: Convert README.md to PDF
+        run: |
+          pandoc README.md \
+            --pdf-engine=pdflatex \
+            -V geometry:margin=1in \
+            -o clojure-cheat-sheet.pdf
+
+      - name: Force-update 'latest' git tag to current commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag -f latest
+          git push origin -f refs/tags/latest
+
+      - name: Create Release and upload PDF
+        uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65 # v2.6.2
+        with:
+          tag_name: latest
+          name: "Clojure Cheat Sheet (latest)"
+          body: |
+            Automatically generated PDF from README.md.
+            Last updated: ${{ github.sha }}
+          make_latest: true
+          files: clojure-cheat-sheet.pdf
