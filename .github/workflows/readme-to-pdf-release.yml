@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
 
       - name: Convert README.md to PDF
-        uses: baileyjm02/markdown-to-pdf@v1
+        uses: baileyjm02/markdown-to-pdf@7562ca07177202ca22ac421b876a28c4d07819a7 # v1
         with:
           input_path: README.md
           output_dir: pdfs
