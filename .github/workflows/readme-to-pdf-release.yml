@@ -30,14 +30,13 @@ jobs:
             -V geometry:margin=1in \
             -o clojure-cheat-sheet.pdf
 
-      - name: Get current date
-        id: date
-        run: echo "tag=release-$(date +'%Y%m%d%H%M%S')" >> "$GITHUB_OUTPUT"
-
       - name: Create Release and upload PDF
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ steps.date.outputs.tag }}
-          name: "Clojure Cheat Sheet – ${{ steps.date.outputs.tag }}"
-          body: "Automatically generated PDF from README.md"
+          tag_name: latest
+          name: "Clojure Cheat Sheet (latest)"
+          body: |
+            Automatically generated PDF from README.md.
+            Last updated: ${{ github.sha }}
+          make_latest: true
           files: clojure-cheat-sheet.pdf
