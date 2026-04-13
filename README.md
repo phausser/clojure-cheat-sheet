@@ -60,7 +60,6 @@ x                   ; => 42
 "Hallo"                    ; String
 (str "Hello" " " "World")  ; Verkettung
 (count "Hallo")            ; => 5
-(uppercase "hello")        ; => nicht vorhanden, aber:
 (clojure.string/upper-case "hello")  ; => "HELLO"
 ```
 
