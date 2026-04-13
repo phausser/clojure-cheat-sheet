@@ -565,6 +565,8 @@ modified                            ; => [1 2 3 4]
 ## Ressourcen zum Lernen
 
 - **REPL ausprobieren**: Clojure REPL lokal starten: `clojure`
+- **Try Clojure**: https://tryclojure.org/
+- **OneCompiler/clojure**: https://onecompiler.com/clojure
 - **Online REPL**: https://repl.it/languages/clojure
 - **Offizielle Docs**: https://clojure.org/
 - **Cheatsheets**: https://clojure.org/cheatsheet
