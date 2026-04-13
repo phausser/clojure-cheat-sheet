@@ -12,6 +12,9 @@ permissions:
 
 jobs:
   build-and-release:
+    concurrency:
+      group: readme-to-pdf-release-latest
+      cancel-in-progress: true
     runs-on: ubuntu-latest
 
     steps:
