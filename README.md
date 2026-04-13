@@ -564,7 +564,7 @@ modified                            ; => [1 2 3 4]
 
 ## 13. Projekt anlegen mit deps.edn
 
-`deps.edn` ist das offizielle Build-Tool-Format von Clojure (Clojure CLI). Es ermöglicht das Verwalten von Abhängigkeiten und das Definieren von Aliases ohne externe Build-Tools wie Leiningen.
+`deps.edn` ist das offizielle Konfigurationsformat der Clojure CLI. Es ermöglicht das Verwalten von Abhängigkeiten und das Definieren von Aliases, ohne ein externes Build-Tool wie Leiningen zu benötigen.
 
 ### Projektstruktur
 
