@@ -562,6 +562,103 @@ modified                            ; => [1 2 3 4]
 
 ---
 
+## 13. Projekt anlegen mit deps.edn
+
+`deps.edn` ist das offizielle Konfigurationsformat der Clojure CLI. Es ermöglicht das Verwalten von Abhängigkeiten und das Definieren von Aliases, ohne ein externes Build-Tool wie Leiningen zu benötigen.
+
+### Projektstruktur
+
+```
+mein-projekt/
+├── deps.edn          ; Abhängigkeiten & Konfiguration
+└── src/
+    └── mein_projekt/
+        └── core.clj  ; Hauptdatei (Unterstriche statt Hyphens im Verzeichnisnamen)
+```
+
+### Minimales deps.edn
+
+```edn
+{:paths ["src"]
+ :deps {org.clojure/clojure {:mvn/version "1.12.0"}}}
+```
+
+### Abhängigkeiten hinzufügen
+
+```edn
+{:paths ["src" "resources"]
+ :deps {org.clojure/clojure    {:mvn/version "1.12.0"}
+        metosin/malli          {:mvn/version "0.16.4"}
+        ring/ring-core         {:mvn/version "1.12.2"}}}
+```
+
+### Aliases definieren
+
+```edn
+{:paths ["src"]
+ :deps {org.clojure/clojure {:mvn/version "1.12.0"}}
+ :aliases
+ {:dev  {:extra-paths ["dev"]
+         :extra-deps  {nrepl/nrepl {:mvn/version "1.3.1"}}}
+  :test {:extra-paths ["test"]
+         :extra-deps  {io.github.cognitect-labs/test-runner
+                       {:git/tag "v0.5.1" :git/sha "dfb30dd"}}}}}
+```
+
+### REPL starten
+
+```bash
+# Einfaches REPL
+clojure
+
+# REPL mit Dev-Alias
+clojure -M:dev
+
+# REPL mit nREPL-Server (für Editor-Integration)
+clojure -M:dev -m nrepl.cmdline --interactive
+```
+
+### Hauptdatei (src/mein_projekt/core.clj)
+
+```clojure
+(ns mein-projekt.core)
+
+(defn -main [& args]
+  (println "Hallo, Welt!"))
+```
+
+### Programm ausführen
+
+```edn
+; Vollständiges deps.edn-Beispiel mit run-Alias:
+{:aliases
+ {:run {:main-opts ["-m" "mein-projekt.core"]}}}
+```
+
+```bash
+# Programm starten
+clojure -M:run
+
+# Direkt ohne Alias
+clojure -M -m mein-projekt.core
+```
+
+### Git-Abhängigkeiten (ohne Maven)
+
+```edn
+{:deps {io.github.user/mein-lib
+        {:git/url "https://github.com/user/mein-lib"
+         :git/sha "abc1234def"}}}
+```
+
+### Lokale Abhängigkeiten
+
+```edn
+{:deps {mein/lokales-projekt {:local/root "../lokales-projekt"}}}
+```
+
+---
+
 ## Ressourcen zum Lernen
 
 - **REPL ausprobieren**: Clojure REPL lokal starten: `clojure`
