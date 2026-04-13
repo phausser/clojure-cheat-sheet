@@ -1,0 +1,43 @@
+name: README to PDF Release
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'README.md'
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install pandoc and LaTeX
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc texlive-latex-base texlive-fonts-recommended texlive-latex-extra
+
+      - name: Convert README.md to PDF
+        run: |
+          pandoc README.md \
+            --pdf-engine=pdflatex \
+            -V geometry:margin=1in \
+            -o clojure-cheat-sheet.pdf
+
+      - name: Get current date
+        id: date
+        run: echo "tag=release-$(date +'%Y%m%d%H%M%S')" >> "$GITHUB_OUTPUT"
+
+      - name: Create Release and upload PDF
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.date.outputs.tag }}
+          name: "Clojure Cheat Sheet – ${{ steps.date.outputs.tag }}"
+          body: "Automatically generated PDF from README.md"
+          files: clojure-cheat-sheet.pdf
