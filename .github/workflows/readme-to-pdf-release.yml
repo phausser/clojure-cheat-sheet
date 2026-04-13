@@ -29,7 +29,7 @@ jobs:
           build_html: false
 
       - name: Rename PDF
-        run: mv pdfs/README.pdf clojure-cheat-sheet.pdf
+        run: sudo mv pdfs/README.pdf clojure-cheat-sheet.pdf
 
       - name: Force-update 'latest' git tag to current commit
         run: |
