@@ -612,7 +612,7 @@ mein-projekt/
 clojure
 
 # REPL mit Dev-Alias
-clojure -A:dev
+clojure -M:dev
 
 # REPL mit nREPL-Server (für Editor-Integration)
 clojure -M:dev -m nrepl.cmdline --interactive
