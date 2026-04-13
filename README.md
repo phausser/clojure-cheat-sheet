@@ -630,9 +630,9 @@ clojure -M:dev -m nrepl.cmdline --interactive
 ### Programm ausführen
 
 ```edn
-; In deps.edn einen run-Alias hinzufügen:
-:aliases
-{:run {:main-opts ["-m" "mein-projekt.core"]}}
+; Vollständiges deps.edn-Beispiel mit run-Alias:
+{:aliases
+ {:run {:main-opts ["-m" "mein-projekt.core"]}}}
 ```
 
 ```bash
